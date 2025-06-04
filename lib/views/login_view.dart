@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:number_converter_app/views/dashboard_view.dart';
 import 'package:number_converter_app/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:number_converter_app/helpers/users_database_helper.dart';
@@ -25,14 +26,14 @@ class _LoginView extends State<LoginView> {
     final User? user = await db.loginUser(email, password);
 
     if (user != null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Bem-vindo, ${user.totalScore}!')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Bem-vindo, ${user.displayName}!')),
+      );
 
-      // TODO: Navegar para o dashboard
-      // Navigator.pushReplacement(context, MaterialPageRoute(
-      //   builder: (_) => HomePage(user: user),
-      // ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => DashboardView(user: user)),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email ou password inválidos')),
