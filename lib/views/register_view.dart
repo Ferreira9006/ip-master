@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:number_converter_app/models/user.dart';
+import 'package:number_converter_app/models/user_model.dart';
 import 'package:number_converter_app/helpers/users_database_helper.dart';
 
 class RegisterView extends StatefulWidget {

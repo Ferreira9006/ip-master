@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:number_converter_app/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:number_converter_app/helpers/users_database_helper.dart';
-import 'package:number_converter_app/models/user.dart';
+import 'package:number_converter_app/models/user_model.dart';
 
 /// Ecrã principal da aplicação que permite converter entre diferentes bases.
 class LoginView extends StatefulWidget {
@@ -25,9 +25,9 @@ class _LoginView extends State<LoginView> {
     final User? user = await db.loginUser(email, password);
 
     if (user != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Bem-vindo, ${user.displayName}!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Bem-vindo, ${user.totalScore}!')));
 
       // TODO: Navegar para o dashboard
       // Navigator.pushReplacement(context, MaterialPageRoute(

@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:number_converter_app/models/user.dart';
+import 'package:number_converter_app/models/user_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -53,6 +53,16 @@ class DatabaseHelper {
       'users',
       where: 'email = ?',
       whereArgs: [email],
+    );
+    return result.isNotEmpty;
+  }
+
+  Future<bool> getScore(int userId) async {
+    final db = await database;
+    final result = await db.query(
+      'users',
+      where: 'total_score = ?',
+      whereArgs: [userId],
     );
     return result.isNotEmpty;
   }
