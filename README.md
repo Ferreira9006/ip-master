@@ -1,63 +1,40 @@
-<<<<<<< HEAD
-# ip-master
-IPV4 Flutter Game
-=======
-# 🧮 IPMaster
+# IP Master
 
-**IPMaster** é uma aplicação Flutter simples, intuitiva e moderna que permite converter números entre diferentes sistemas de numeração: Binário, Octal, Decimal e Hexadecimal. Ideal para estudantes, programadores ou qualquer pessoa que necessite de converter valores rapidamente.
+**IP Master** é um jogo educativo desenvolvido em Flutter que ajuda os utilizadores a aprenderem e testarem os seus conhecimentos sobre **endereçamento IPv4**, incluindo conceitos como Network ID, Broadcast e sub-redes.
 
-![IPMaster Logo](assets/images/logo.png)
+## 🎯 Objetivos do Projeto
 
----
+- Ensinar conceitos fundamentais de redes de computadores através da prática.
+- Gerar perguntas automáticas com três níveis de dificuldade.
+- Registar e autenticar utilizadores localmente com SQLite.
+- Acompanhar pontuação e mostrar o ranking dos melhores jogadores.
 
-## 🚀 Funcionalidades
+## 🧱 Funcionalidades
 
-- 🔄 Conversão entre bases: Converte entre Binário (2), Octal (8), Decimal (10) e Hexadecimal (16).
-- ✅ Validação de entrada: Garante que os números inseridos são válidos para a base escolhida.
-- 📝 Histórico de conversões: Registo automático das conversões realizadas.
-- 💡 Interface moderna e responsiva: Layout limpo.
-- 🧩 Componentes reutilizáveis: Código organizado e modular com `widgets`, `models` e `funções`.
-- ♻️ Botão para limpar campos e histórico de forma imediata.
-- ⏳ Ecrã inicial com logótipo (Splash Screen) com carregamento antes da entrada na app. *(opcional)*
+- **Registo e Login de Utilizadores** (armazenados localmente com SQLite)
+- **Validação de e-mail e password**
+- **Pontuação associada ao utilizador**
+- **Criação de perguntas automáticas por nível:**
+  - Nível 1: IPv4 básico (/8, /16, /24)
+  - Nível 2: Sub-redes
+  - Nível 3: Super-redes
+- **Feedback imediato após cada resposta**
+- **Ranking dos 5 melhores scores**
+- **Dashboard do utilizador com nome, e-mail e pontuação**
+- **Botão de Logout**
 
----
+## 🧪 Tecnologias Usadas
 
-## 📄 Como utilizar
+- **Flutter** (Dart)
+- **SQLite** (via `sqflite`)
+- **Validação com `email_validator`**
 
-1. Introduz um número no campo de texto.
-2. Seleciona a base de origem e a base de destino através dos menus suspensos.
-3. Clica no botão “Converter”.
-4. Visualiza o resultado no cartão apresentado e consulta o histórico por baixo.
+## 🚀 Como correr o projeto
 
-Para limpar os campos e o histórico, usa o ícone de “refresh” no canto superior direito da aplicação.
-
----
-
-## 📂 Estrutura da Aplicação
-
-- `SplashScreen` *(opcional)*: Mostra a imagem/logo da app durante alguns segundos.
-- `ConverterView`: Ecrã principal com formulário de conversão e histórico.
-- `functions.dart`: Contém a lógica de conversão e validação de valores.
-- `conversion.dart`: Modelo de dados para representar uma conversão.
-- `dropdown_button.dart`: Widget reutilizável para seleção de bases numéricas.
-- `assets/images/logo.png`: Logótipo da aplicação.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Flutter**: Framework para desenvolvimento multiplataforma.
-- **Dart**: Linguagem utilizada para lógica e UI.
-- **Material Design**: Sistema de design que garante uma experiência visual agradável.
-
----
-
-## 🔧 Como correr o projeto
-
-1. Clona este repositório:
+1. Clona o repositório:
    ```bash
-   git clone https://github.com/o-teu-utilizador/IPMaster.git
-   cd IPMaster
+   git clone https://github.com/teu-utilizador/ip-master.git
+   cd ip-master
    ```
 
 2. Instala as dependências:
@@ -70,17 +47,30 @@ Para limpar os campos e o histórico, usa o ícone de “refresh” no canto sup
    flutter run
    ```
 
----
+## 📁 Estrutura atual do Projeto
 
-## 📌 Notas
+```
+lib/
+├── views/              # Login, Registo, Dashboard
+├── models/             # Modelo User
+├── helpers/            # Acesso a base de dados SQLite
+├── main.dart           # Entrada principal da aplicação
+assets/
+└── images/             # Logo
+```
 
-- Apenas são aceites números válidos de acordo com a base selecionada.
-- O histórico não é persistente — será limpo ao fechar ou reiniciar a app.
+## 📌 Estado atual
 
----
+✅ Login e registo funcionais  
+✅ Base de dados local criada com sucesso  
+🚧 Modo de jogo em desenvolvimento  
+🚧 Ranking dinâmico por pontuação
 
-## ✨ Conclusão
+## 🧑‍💻 Autores
 
-Com o **IPMaster**, podes converter rapidamente números entre diferentes sistemas numéricos de forma simples e eficaz. Seja para fins académicos, profissionais ou apenas por curiosidade, esta aplicação oferece uma solução prática e agradável de usar.
->>>>>>> 52465ee (Primeiro commit)
-"# ip-master" 
+- Gabriel Ferreira
+- [Colaborador X, se aplicável]
+
+## 📄 Licença
+
+Este projeto é de uso académico. Pode ser adaptado e reutilizado com os devidos créditos.

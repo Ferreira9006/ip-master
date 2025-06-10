@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:number_converter_app/views/splash_screen_view.dart';
+import 'package:IPMaster/views/splash_screen_view.dart';
 
 void main() {
   runApp(const BaseJump());
@@ -11,13 +11,13 @@ class BaseJump extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Number Converter',
+      title: 'IPMaster',
       theme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: const Color(0xFF003945),
-        scaffoldBackgroundColor: const Color(0xFF003945),
+        primaryColor: const Color(0xFF002E3C),
+        scaffoldBackgroundColor: const Color(0xFF002E3C),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color(0xFF003945),
+          seedColor: Color(0xFF002E3C),
           brightness: Brightness.dark,
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:number_converter_app/models/user_model.dart';
+import 'package:IPMaster/models/user_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -45,6 +45,19 @@ class DatabaseHelper {
       whereArgs: [email, password],
     );
     return result.isNotEmpty ? User.fromMap(result.first) : null;
+  }
+
+  Future<List<User>> getRankTopFive() async {
+    final db = await database;
+    // Ordena por total_score desc e limita a 5
+    final List<Map<String, dynamic>> maps = await db.query(
+      'users',
+      orderBy: 'total_score DESC',
+      limit: 5,
+    );
+
+    // Converte cada Map num User e devolve a lista
+    return maps.map((m) => User.fromMap(m)).toList();
   }
 
   Future<bool> emailExists(String email) async {

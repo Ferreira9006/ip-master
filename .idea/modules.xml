@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/number_converter_app.iml" filepath="$PROJECT_DIR$/number_converter_app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/number_converter_app_android.iml" filepath="$PROJECT_DIR$/android/number_converter_app_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IPMaster.iml" filepath="$PROJECT_DIR$/IPMaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/IPMaster_android.iml" filepath="$PROJECT_DIR$/android/IPMaster_android.iml" />
     </modules>
   </component>
 </project>

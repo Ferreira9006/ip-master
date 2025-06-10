@@ -1,6 +1,6 @@
 {
-    "name": "number_converter_app",
-    "short_name": "number_converter_app",
+    "name": "IPMaster",
+    "short_name": "IPMaster",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

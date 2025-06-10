@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:number_converter_app/views/dashboard_view.dart';
-import 'package:number_converter_app/views/register_view.dart';
+import 'package:IPMaster/views/dashboard_view.dart';
+import 'package:IPMaster/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:number_converter_app/helpers/users_database_helper.dart';
-import 'package:number_converter_app/models/user_model.dart';
+import 'package:IPMaster/helpers/users_database_helper.dart';
+import 'package:IPMaster/models/user_model.dart';
 
 /// Ecrã principal da aplicação que permite converter entre diferentes bases.
 class LoginView extends StatefulWidget {
