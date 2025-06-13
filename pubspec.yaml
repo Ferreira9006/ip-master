@@ -37,6 +37,7 @@ dependencies:
   sqflite: any
   path: any
   email_validator: '^2.1.17'
+  network_tools: ^5.0.6
 
 dev_dependencies:
   flutter_test:

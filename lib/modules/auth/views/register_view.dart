@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:IPMaster/models/user_model.dart';
-import 'package:IPMaster/helpers/users_database_helper.dart';
+import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:IPMaster/modules/auth/data/users_database_helper.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -21,7 +21,7 @@ class _RegisterViewState extends State<RegisterView> {
     final password = _passwordController.text.trim();
     final name = _nameController.text.trim();
 
-    final db = DatabaseHelper.instance;
+    final db = UsersDatabaseHelper();
 
     final emailTaken = await db.emailExists(email);
     if (emailTaken) {

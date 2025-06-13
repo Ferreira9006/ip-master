@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:IPMaster/models/user_model.dart';
-import 'package:IPMaster/views/login_view.dart';
-import 'package:IPMaster/views/top5rank_view.dart';
+import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:IPMaster/modules/auth/views/login_view.dart';
+import 'package:IPMaster/modules/ranking/views/top5rank_view.dart';
+import 'package:IPMaster/modules/quiz/views/quiz_view.dart';
 
 class DashboardView extends StatefulWidget {
   final User user;
 
-  const DashboardView({super.key, required this.user});
+  const DashboardView({Key? key, required this.user}) : super(key: key);
 
   @override
   State<DashboardView> createState() => _DashboardViewState();
 }
 
 class _DashboardViewState extends State<DashboardView> {
+  void _startQuiz(int level) {
+    /*Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuizView(user: widget.user, level: level),
+      ),
+    );*/
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +35,7 @@ class _DashboardViewState extends State<DashboardView> {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginView()),
+                MaterialPageRoute(builder: (_) => const LoginView()),
                 (route) => false,
               );
             },
@@ -48,16 +58,41 @@ class _DashboardViewState extends State<DashboardView> {
                 _buildRow("Pontuação", widget.user.totalScore.toString()),
               ],
             ),
-            TextButton(
+            const SizedBox(height: 24),
+            ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => Top5Rank(user: widget.user),
+                    builder: (_) => CombinedTop5RankView(user: widget.user),
                   ),
                 );
               },
-              child: const Text("Ranking Top 5"),
+              child: const Text("Ver Ranking Top 5 por Nível"),
+            ),
+            // dentro de DashboardView, abaixo da tabela
+            const SizedBox(height: 24),
+            Text(
+              'Escolhe o nível de dificuldade:',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _startQuiz(1),
+                  child: const Text('Nível 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _startQuiz(2),
+                  child: const Text('Nível 2'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _startQuiz(3),
+                  child: const Text('Nível 3'),
+                ),
+              ],
             ),
           ],
         ),
