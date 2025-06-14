@@ -2,17 +2,15 @@ import 'package:ip_master/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
 import 'package:ip_master/modules/ranking/models/user_score_model.dart';
-import 'package:ip_master/modules/auth/models/user_model.dart';
 
-class CombinedTop5RankView extends StatefulWidget {
-  final User user;
-  const CombinedTop5RankView({super.key, required this.user});
+class LeaderboardView extends StatefulWidget {
+  const LeaderboardView({super.key});
 
   @override
-  State<CombinedTop5RankView> createState() => _CombinedTop5RankViewState();
+  State<LeaderboardView> createState() => _LeaderboardViewState();
 }
 
-class _CombinedTop5RankViewState extends State<CombinedTop5RankView> {
+class _LeaderboardViewState extends State<LeaderboardView> {
   List<UserScore> rank1 = [];
   List<UserScore> rank2 = [];
   List<UserScore> rank3 = [];

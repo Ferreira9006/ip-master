@@ -6,6 +6,7 @@ import 'package:ip_master/modules/auth/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:ip_master/modules/auth/data/users_database_helper.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/ranking/views/leaderboard_no_login_view.dart';
 
 /// Ecrã principal da aplicação que permite converter entre diferentes bases.
 class LoginView extends StatefulWidget {
@@ -211,7 +212,8 @@ class _LoginView extends State<LoginView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterView(),
+                              builder:
+                                  (context) => const LeaderboardNoLoginView(),
                             ),
                           );
                         },

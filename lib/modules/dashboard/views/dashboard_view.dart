@@ -1,8 +1,8 @@
+import 'package:ip_master/modules/dashboard/views/leaderboard_view.dart';
 import 'package:ip_master/modules/dashboard/views/start_game_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
 import 'package:ip_master/modules/auth/views/login_view.dart';
-import 'package:ip_master/modules/ranking/views/top5rank_view.dart';
 import 'package:ip_master/modules/dashboard/views/info_panel_view.dart';
 
 class DashboardView extends StatefulWidget {
@@ -24,7 +24,7 @@ class _DashboardViewState extends State<DashboardView> {
     screens = [
       UserInfoPanel(user: widget.user),
       StartGameView(user: widget.user),
-      CombinedTop5RankView(user: widget.user),
+      LeaderboardView(),
     ];
   }
 

@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:ip_master/core/app_constants.dart';
 import 'package:ip_master/core/widgets/app_fullwidth_button.dart';
 import 'package:ip_master/modules/quiz/views/quiz_view.dart';
-import 'package:flutter/material.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
 
 class StartGameView extends StatefulWidget {
