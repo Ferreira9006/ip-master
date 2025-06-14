@@ -1,76 +1,114 @@
 # IP Master
 
-**IP Master** é um jogo educativo desenvolvido em Flutter que ajuda os utilizadores a aprenderem e testarem os seus conhecimentos sobre **endereçamento IPv4**, incluindo conceitos como Network ID, Broadcast e sub-redes.
+**IP Master** é uma aplicação educativa desenvolvida em **Flutter** que permite aprender e praticar conceitos essenciais de redes de computadores, focando-se no **endereçamento IPv4**, incluindo Network ID, Broadcast, sub-redes e super-redes.
+
+---
 
 ## 🎯 Objetivos do Projeto
 
-- Ensinar conceitos fundamentais de redes de computadores através da prática.
-- Gerar perguntas automáticas com três níveis de dificuldade.
+- Ensinar os conceitos de IPv4 através de gamificação.
+- Gerar perguntas dinâmicas por nível de dificuldade.
 - Registar e autenticar utilizadores localmente com SQLite.
-- Acompanhar pontuação e mostrar o ranking dos melhores jogadores.
+- Guardar pontuação e apresentar rankings competitivos.
+- Tornar a experiência visual moderna, responsiva e acessível.
+
+---
 
 ## 🧱 Funcionalidades
 
-- **Registo e Login de Utilizadores** (armazenados localmente com SQLite)
+- **Login, Registo e Logout de Utilizadores**
+- **Autenticação local via SQLite**
 - **Validação de e-mail e password**
-- **Pontuação associada ao utilizador**
-- **Criação de perguntas automáticas por nível:**
+- **Dashboard com dados pessoais e pontuações por nível**
+- **Sistema de perguntas automáticas por nível:**
   - Nível 1: IPv4 básico (/8, /16, /24)
-  - Nível 2: Sub-redes
-  - Nível 3: Super-redes
-- **Feedback imediato após cada resposta**
-- **Ranking dos 5 melhores scores**
-- **Dashboard do utilizador com nome, e-mail e pontuação**
-- **Botão de Logout**
+  - Nível 2: Sub-redes comuns (/25, /26, /27, /28)
+  - Nível 3: Super-redes (/19, /20, /21, /22)
+- **Pontuação por pergunta e sessão**
+- **Feedback visual imediato após cada resposta**
+- **Ranking Top 5 por dificuldade**
+- **Leaderboard acessível com e sem login**
+- **Interface moderna, com animações e tema personalizável**
+- **Splash Screen com animações**
+- **Separação modular em widgets reutilizáveis**
+
+---
 
 ## 🧪 Tecnologias Usadas
 
-- **Flutter** (Dart)
-- **SQLite** (via `sqflite`)
-- **Validação com `email_validator`**
+- [x] **Flutter (Dart)**
+- [x] **SQLite** (via `sqflite`)
+- [x] **Email Validator**
+- [x] **Google Fonts**
+- [x] **flutter_animate**
+- [x] **Material 3 e theming adaptável**
+
+---
 
 ## 🚀 Como correr o projeto
 
 1. Clona o repositório:
+
    ```bash
-   git clone https://github.com/teu-utilizador/ip-master.git
+   git clone https://github.com/o-teu-utilizador/ip-master.git
    cd ip-master
    ```
 
 2. Instala as dependências:
+
    ```bash
    flutter pub get
    ```
 
 3. Corre a aplicação:
+
    ```bash
    flutter run
    ```
 
-## 📁 Estrutura atual do Projeto
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 lib/
-├── views/              # Login, Registo, Dashboard
-├── models/             # Modelo User
-├── helpers/            # Acesso a base de dados SQLite
-├── main.dart           # Entrada principal da aplicação
-assets/
-└── images/             # Logo
+├── core/
+│   ├── theme.dart               # Tema global
+│   ├── app_constants.dart       # Constantes do projeto
+│   └── database_helper.dart     # Ligação à base de dados SQLite
+│
+├── modules/
+│   ├── auth/                    # Registo, Login, Modelos
+│   │   ├── data/                # Lógica de base de dados (users)
+│   │   ├── models/              # Modelo User
+│   │   └── views/               # Ecrãs de login e registo
+│
+│   ├── dashboard/               # Painel do utilizador e Leaderboard
+│   │   └── views/
+│
+│   ├── quiz/                    # Lógica do jogo
+│   │   ├── models/              # Modelo Question
+│   │   ├── utils/               # Funções auxiliares (geração de perguntas)
+│   │   └── views/               # Ecrã do jogo
+│
+│   └── ranking/                 # Dados e visualização do ranking
+│       ├── data/
+│       ├── models/
+│       └── views/
+│
+├── views/
+│   └── main.dart                # Ponto de entrada da aplicação
 ```
 
-## 📌 Estado atual
+---
 
-✅ Login e registo funcionais  
-✅ Base de dados local criada com sucesso  
-🚧 Modo de jogo em desenvolvimento  
-🚧 Ranking dinâmico por pontuação
+## 📌 Estado Atual
 
-## 🧑‍💻 Autores
-
-- Gabriel Ferreira
-- [Colaborador X, se aplicável]
-
-## 📄 Licença
-
-Este projeto é de uso académico. Pode ser adaptado e reutilizado com os devidos créditos.
+✅ Splash Screen animado  
+✅ Login/Registo funcionais  
+✅ Dashboard funcional com pontuação  
+✅ Geração de perguntas aleatórias por nível  
+✅ Feedback visual e pontuação por resposta  
+✅ Ranking funcional com persistência local  
+✅ Leaderboard acessível sem login  
+✅ Estilo moderno e responsivo
