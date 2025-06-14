@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Botão personalizado reutilizável com estilo consistente
+/// Botão personalizado de largura total.
+/// Este widget permite reutilizar um botão estilizado de forma consistente,
+/// com ou sem ícone, ocupando toda a largura disponível.
 class AppFullWidthButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -21,6 +23,7 @@ class AppFullWidthButton extends StatelessWidget {
       onPressed: onPressed,
     );
 
+    // Devolve o botão dentro de um SizedBox para ocupar toda a largura disponível
     return SizedBox(width: double.infinity, child: button);
   }
 }

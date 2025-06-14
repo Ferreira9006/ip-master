@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Input personalizado reutilizável com estilo consistente
+/// Campo de texto personalizado reutilizável (TextFormField).
+/// Este widget aplica um estilo comum a todos os campos de entrada da aplicação,
+/// facilitando a consistência visual e a reutilização.
 class AppInputTextformfield extends StatelessWidget {
   final TextInputType keyboardType;
   final String hintText;

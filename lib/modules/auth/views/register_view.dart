@@ -6,6 +6,8 @@ import 'package:ip_master/modules/auth/data/users_database_helper.dart';
 import 'package:ip_master/core/widgets/app_fullwidth_button.dart';
 import 'package:ip_master/modules/auth/views/login_view.dart';
 
+/// Ecrã de registo da aplicação.
+/// Permite ao utilizador criar uma conta local, validando os dados e guardando na base de dados.
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
@@ -14,11 +16,14 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); // Form key
+
+  // Controladores dos campos do formulário
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // Função de registo: valida se o email já existe e insere novo utilizador
   void _register() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();

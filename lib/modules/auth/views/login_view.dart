@@ -8,7 +8,8 @@ import 'package:ip_master/modules/auth/data/users_database_helper.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
 import 'package:ip_master/modules/ranking/views/leaderboard_no_login_view.dart';
 
-/// Ecrã principal da aplicação que permite converter entre diferentes bases.
+/// Ecrã de login da aplicação.
+/// Permite autenticar o utilizador e navegar para o dashboard se as credenciais forem válidas.
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -17,10 +18,15 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginView extends State<LoginView> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); // Form key
+
+  // Controladores dos inputs
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // Função de login
+  // Se login for válido => route dashboard
+  // Se inválido, mensagem de erro Scaffold
   void _login() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
@@ -44,7 +50,7 @@ class _LoginView extends State<LoginView> {
     }
   }
 
-  /// Interface visual do ecrã de conversão.
+  /// Interface visual da página de Login.
   @override
   Widget build(BuildContext context) {
     return Stack(

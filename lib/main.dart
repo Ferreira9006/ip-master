@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:ip_master/views/splash_screen_view.dart';
 
 void main() {
-  runApp(const BaseJump());
+  runApp(const IpMaster());
 }
 
-class BaseJump extends StatelessWidget {
-  const BaseJump({super.key});
+class IpMaster extends StatelessWidget {
+  const IpMaster({super.key});
 
   @override
   Widget build(BuildContext context) {

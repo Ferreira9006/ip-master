@@ -4,9 +4,12 @@ import 'package:ip_master/modules/quiz/models/questions_model.dart';
 import 'package:ip_master/modules/quiz/utils/quiz_question.dart';
 import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
 
+/// Ecrã principal do jogo de perguntas.
+/// Apresenta uma pergunta de acordo com o nível e atualiza a pontuação do jogador.
 class QuizView extends StatefulWidget {
-  final User user;
-  final int level;
+  final User user; // Utilizador autenticado
+  final int level; // Nível de dificuldade selecionado
+
   const QuizView({super.key, required this.user, required this.level});
 
   @override
@@ -14,17 +17,17 @@ class QuizView extends StatefulWidget {
 }
 
 class _QuizViewState extends State<QuizView> {
-  late Question _current;
-  bool _answered = false;
-  int _sessionScore = 0;
+  late Question _current; // Pergunta atual
+  bool _answered = false; // Evita múltiplas respostas
+  int _sessionScore = 0; // Pontuação da sessão atual
 
   @override
   void initState() {
     super.initState();
-    _loadNext();
+    _loadNext(); // Carrega a primeira pergunta
   }
 
-  // Carrega a próxima pergunta
+  // Gera nova pergunta e reinicia o estado de resposta
   void _loadNext() {
     setState(() {
       _current = generateQuestion(widget.level);
@@ -32,15 +35,15 @@ class _QuizViewState extends State<QuizView> {
     });
   }
 
-  // Lógica de resposta do utilizador
+  // Trata da resposta do utilizador
   void _onSelect(String option) async {
-    if (_answered) return;
+    if (_answered) return; // Impede respostas múltiplas
     setState(() => _answered = true);
 
     final correct = option == _current.correctAnswer;
-    int scoreDelta;
 
-    // Pontuação consoante o nível
+    // Define pontos ganhos/perdidos com base no nível
+    int scoreDelta;
     switch (widget.level) {
       case 1:
         scoreDelta = correct ? 10 : -5;
@@ -55,29 +58,28 @@ class _QuizViewState extends State<QuizView> {
         scoreDelta = 0;
     }
 
-    // Atualiza o score da sessão atual
-    _sessionScore += scoreDelta;
+    _sessionScore += scoreDelta; // Atualiza pontuação
 
-    // Guarda o resultado na base de dados
+    // Regista o resultado na base de dados local
     await ScoresDatabaseHelper().insertScore(
       userId: widget.user.id!,
       difficulty: widget.level,
       score: scoreDelta,
     );
 
-    // Mostra feedback ao jogador
+    // Mostra feedback ao utilizador
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           correct
-              ? '✔️ Correto! Ganhaste $scoreDelta pontos.'
-              : '❌ Errado! Perdeste ${-scoreDelta} pontos.\nResposta certa: ${_current.correctAnswer}',
+              ? 'Correto! Ganhaste $scoreDelta pontos.'
+              : 'Errado! Perdeste ${-scoreDelta} pontos.\nResposta certa: ${_current.correctAnswer}',
         ),
         duration: const Duration(seconds: 2),
       ),
     );
 
-    // Espera 2 segundos antes de carregar nova pergunta
+    // Espera 2 segundos antes de apresentar nova pergunta
     Future.delayed(const Duration(seconds: 2), _loadNext);
   }
 
@@ -87,6 +89,7 @@ class _QuizViewState extends State<QuizView> {
       appBar: AppBar(
         title: Text('Quiz Nível ${widget.level}'),
         actions: [
+          // Mostra a pontuação atual no topo
           Padding(
             padding: const EdgeInsets.all(16),
             child: Center(child: Text('Score: $_sessionScore')),
@@ -98,10 +101,11 @@ class _QuizViewState extends State<QuizView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Pergunta atual
+            // Mostra a pergunta atual
             Text(_current.questionText, style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 24),
-            // Lista de opções
+
+            // Lista de opções com cores de feedback (verde/vermelho)
             ..._current.options.map(
               (opt) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6),

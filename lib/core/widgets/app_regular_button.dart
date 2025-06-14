@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Botão reutilizável com estilo consistente.
+/// Pode incluir texto e um ícone opcional.
+/// Ao contrário do AppFullWidthButton, este botão não ocupa toda a largura disponível.
 class AppRegularButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
