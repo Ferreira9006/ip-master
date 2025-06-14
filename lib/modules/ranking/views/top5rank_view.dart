@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
 import 'package:IPMaster/modules/ranking/models/user_score_model.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
-import 'package:IPMaster/views/dashboard_view.dart';
+import 'package:IPMaster/modules/dashboard/views/dashboard_view.dart';
 
 class CombinedTop5RankView extends StatelessWidget {
   final User user;

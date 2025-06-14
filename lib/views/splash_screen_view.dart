@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // Aguarda 5 segundos antes de navegar automaticamente para o LoginView
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 7), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginView()),
@@ -28,28 +28,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF003945), // Cor de fundo da splash screen
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Logótipo da aplicação
-            Image.asset('assets/images/logo.png', width: 200),
-
-            const SizedBox(height: 24), // Espaço entre imagem e texto
-            // Frase de apresentação
-            const Text(
-              'Between zeros and ones',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          "assets/images/login_background.png",
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
         ),
-      ),
+        Scaffold(
+          backgroundColor: Colors.transparent, // Cor de fundo da splash screen
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Image.asset('assets/images/logo.png', width: 300)],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

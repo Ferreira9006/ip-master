@@ -1,5 +1,6 @@
+import 'package:IPMaster/core/widgets/app_fullwidth_button.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/views/dashboard_view.dart';
+import 'package:IPMaster/modules/dashboard/views/dashboard_view.dart';
 import 'package:IPMaster/modules/auth/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:IPMaster/modules/auth/data/users_database_helper.dart';
@@ -44,93 +45,189 @@ class _LoginView extends State<LoginView> {
   /// Interface visual do ecrã de conversão.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Página Login')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Image.asset('assets/images/logo.png', height: 200),
-            const SizedBox(height: 10),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Insere um e-mail',
-                    ),
-                    controller: _emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'O e-mail é obrigatório';
-                      } else if (!EmailValidator.validate(value)) {
-                        return 'E-mail inválido';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  TextFormField(
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Insere uma password',
-                    ),
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'A password é obrigatória';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _login();
-                      }
-                    },
-                    child: const Text("Login"),
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  const Divider(thickness: 1.5, color: Colors.grey, height: 10),
-
-                  const SizedBox(height: 40),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterView(),
-                        ),
-                      );
-                    },
-                    child: const Text("Register"),
-                  ),
-
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
-            // Formulário de entrada e seleção de bases
-          ],
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          "assets/images/login_background.png",
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
         ),
-      ),
+
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 150),
+                Text(
+                  'Bem vindo',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    color: Color.fromARGB(255, 29, 28, 28),
+                  ),
+                ),
+
+                Text(
+                  'Entre na sua conta para continuar.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                    color: Color(0xFF1C1C1C),
+                  ),
+                ),
+                SizedBox(height: 26),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Insera o seu e-mail',
+                          prefixIcon: const Icon(Icons.email_outlined),
+                        ),
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'O e-mail é obrigatório';
+                          } else if (!EmailValidator.validate(value)) {
+                            return 'E-mail inválido';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      TextFormField(
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Insira a sua password',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                        ),
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'A password é obrigatória';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      AppFullWidthButton(
+                        text: "Login",
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _login();
+                          }
+                        },
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 40,
+                          left: 40,
+                          right: 40,
+                          bottom: 35,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Expanded(
+                              child: Divider(thickness: 1, color: Colors.grey),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              child: Text(
+                                "OU",
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            const Expanded(
+                              child: Divider(thickness: 1, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/icons/apple_icon.png",
+                            height: 30,
+                            width: 30,
+                          ),
+                          SizedBox(width: 5),
+                          Image.asset(
+                            "assets/images/icons/facebook_icon.png",
+                            height: 30,
+                            width: 30,
+                          ),
+                          SizedBox(width: 7),
+                          Image.asset(
+                            "assets/images/icons/google_icon.png",
+                            height: 25,
+                            width: 25,
+                          ),
+                          SizedBox(width: 13),
+                          Image.asset(
+                            "assets/images/icons/x_icon.png",
+                            height: 27,
+                            width: 27,
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 40),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterView(),
+                            ),
+                          );
+                        },
+                        child: Text("Ainda não tem conta? Crie aqui."),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterView(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Quer ver o nosso leaderboard? Clique aqui.",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

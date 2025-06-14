@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
 import 'package:IPMaster/modules/auth/data/users_database_helper.dart';
+import 'package:IPMaster/core/widgets/app_fullwidth_button.dart';
+import 'package:IPMaster/modules/auth/views/login_view.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -44,82 +46,163 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Registar Conta')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Nome',
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          "assets/images/login_background.png",
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 150),
+                Text(
+                  'Crie a sua conta',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    color: Color.fromARGB(255, 29, 28, 28),
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'O nome é obrigatório';
-                  }
-                  return null;
-                },
-              ),
 
-              const SizedBox(height: 16),
-
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'E-mail',
+                Text(
+                  'Entre na sua conta para continuar.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                    color: Color(0xFF1C1C1C),
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'O e-mail é obrigatório';
-                  } else if (!EmailValidator.validate(value)) {
-                    return 'E-mail inválido';
-                  }
-                  return null;
-                },
-              ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 26),
 
-              const SizedBox(height: 16),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Insira o seu nome',
+                          prefixIcon: const Icon(Icons.person),
+                        ),
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'O nome é obrigatório';
+                          }
+                          return null;
+                        },
+                      ),
 
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
+                      const SizedBox(height: 16),
+
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Insira o seu e-mail',
+                          prefixIcon: const Icon(Icons.email_outlined),
+                        ),
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'O e-mail é obrigatório';
+                          } else if (!EmailValidator.validate(value)) {
+                            return 'E-mail inválido';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Insira a sua password',
+                          prefixIcon: const Icon(Icons.password),
+                        ),
+                        controller: _passwordController,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'A password é obrigatória';
+                          } else if (value.length < 4) {
+                            return 'A password deve ter pelo menos 4 caracteres';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      AppFullWidthButton(
+                        text: 'Criar Conta',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _register();
+                          }
+                        },
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 40,
+                          left: 40,
+                          right: 40,
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Expanded(
+                              child: Divider(thickness: 1, color: Colors.grey),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              child: Text(
+                                "OU",
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            const Expanded(
+                              child: Divider(thickness: 1, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginView(),
+                            ),
+                          );
+                        },
+                        child: Text("Já tem conta? Faça Login."),
+                      ),
+                    ],
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'A password é obrigatória';
-                  } else if (value.length < 4) {
-                    return 'A password deve ter pelo menos 4 caracteres';
-                  }
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 24),
-
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _register();
-                  }
-                },
-                child: const Text('Registar'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
