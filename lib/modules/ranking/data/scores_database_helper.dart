@@ -49,4 +49,22 @@ class ScoresDatabaseHelper {
         )
         .toList();
   }
+
+  Future<int> getUserScoreByDifficulty(int difficulty, int userId) async {
+    final db = await DatabaseHelper.instance.database;
+
+    final result = await db.rawQuery(
+      '''
+    SELECT SUM(score) as total_score
+    FROM scores
+    WHERE difficulty = ? AND user_id = ?
+    ''',
+      [difficulty, userId],
+    );
+
+    final row = result.first;
+
+    // Se não houver score ainda, retorna 0
+    return row['total_score'] != null ? row['total_score'] as int : 0;
+  }
 }
