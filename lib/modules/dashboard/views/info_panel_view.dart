@@ -1,12 +1,12 @@
-import 'package:IPMaster/core/app_constants.dart';
+import 'package:ip_master/core/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
-import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
 
 class UserInfoPanel extends StatefulWidget {
   final User user;
 
-  const UserInfoPanel({Key? key, required this.user}) : super(key: key);
+  const UserInfoPanel({super.key, required this.user});
 
   @override
   State<UserInfoPanel> createState() => _UserInfoPanelState();

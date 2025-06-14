@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:IPMaster/modules/quiz/models/questions_model.dart';
+import 'package:ip_master/modules/quiz/models/questions_model.dart';
 
 final _random = Random();
 

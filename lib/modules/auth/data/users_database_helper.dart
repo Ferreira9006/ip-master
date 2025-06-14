@@ -1,5 +1,5 @@
-import 'package:IPMaster/core/database_helper.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:ip_master/core/database_helper.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
 
 class UsersDatabaseHelper {
   final _dbHelper = DatabaseHelper.instance;

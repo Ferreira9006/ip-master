@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/auth/views/login_view.dart';
+import 'package:ip_master/modules/auth/views/login_view.dart';
 
 /// Ecrã de introdução (Splash Screen) apresentado ao iniciar a aplicação.
 /// Mostra o logótipo e uma frase antes de redirecionar para a tela principal.

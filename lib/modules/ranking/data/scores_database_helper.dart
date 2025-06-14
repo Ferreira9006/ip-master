@@ -1,5 +1,5 @@
-import 'package:IPMaster/core/database_helper.dart';
-import 'package:IPMaster/modules/ranking/models/user_score_model.dart';
+import 'package:ip_master/core/database_helper.dart';
+import 'package:ip_master/modules/ranking/models/user_score_model.dart';
 
 class ScoresDatabaseHelper {
   final _dbHelper = DatabaseHelper.instance;

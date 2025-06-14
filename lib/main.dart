@@ -1,6 +1,6 @@
-import 'package:IPMaster/core/theme.dart';
+import 'package:ip_master/core/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/views/splash_screen_view.dart';
+import 'package:ip_master/views/splash_screen_view.dart';
 
 void main() {
   runApp(const BaseJump());

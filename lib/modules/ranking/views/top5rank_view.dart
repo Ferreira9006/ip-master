@@ -1,12 +1,12 @@
-import 'package:IPMaster/core/app_constants.dart';
+import 'package:ip_master/core/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
-import 'package:IPMaster/modules/ranking/models/user_score_model.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
+import 'package:ip_master/modules/ranking/models/user_score_model.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
 
 class CombinedTop5RankView extends StatefulWidget {
   final User user;
-  const CombinedTop5RankView({Key? key, required this.user}) : super(key: key);
+  const CombinedTop5RankView({super.key, required this.user});
 
   @override
   State<CombinedTop5RankView> createState() => _CombinedTop5RankViewState();

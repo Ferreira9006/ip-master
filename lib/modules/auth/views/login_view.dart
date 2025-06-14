@@ -1,11 +1,11 @@
-import 'package:IPMaster/core/widgets/app_fullwidth_button.dart';
-import 'package:IPMaster/core/widgets/app_input_textformfield.dart';
+import 'package:ip_master/core/widgets/app_fullwidth_button.dart';
+import 'package:ip_master/core/widgets/app_input_textformfield.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/dashboard/views/dashboard_view.dart';
-import 'package:IPMaster/modules/auth/views/register_view.dart';
+import 'package:ip_master/modules/dashboard/views/dashboard_view.dart';
+import 'package:ip_master/modules/auth/views/register_view.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:IPMaster/modules/auth/data/users_database_helper.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/auth/data/users_database_helper.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
 
 /// Ecrã principal da aplicação que permite converter entre diferentes bases.
 class LoginView extends StatefulWidget {

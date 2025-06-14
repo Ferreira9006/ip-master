@@ -1,14 +1,14 @@
-import 'package:IPMaster/modules/dashboard/views/start_game_view.dart';
+import 'package:ip_master/modules/dashboard/views/start_game_view.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
-import 'package:IPMaster/modules/auth/views/login_view.dart';
-import 'package:IPMaster/modules/ranking/views/top5rank_view.dart';
-import 'package:IPMaster/modules/dashboard/views/info_panel_view.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/auth/views/login_view.dart';
+import 'package:ip_master/modules/ranking/views/top5rank_view.dart';
+import 'package:ip_master/modules/dashboard/views/info_panel_view.dart';
 
 class DashboardView extends StatefulWidget {
   final User user;
 
-  const DashboardView({Key? key, required this.user}) : super(key: key);
+  const DashboardView({super.key, required this.user});
 
   @override
   State<DashboardView> createState() => _DashboardViewState();

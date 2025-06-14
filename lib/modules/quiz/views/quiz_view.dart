@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
-import 'package:IPMaster/modules/quiz/models/questions_model.dart';
-import 'package:IPMaster/modules/quiz/utils/quiz_question.dart';
-import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/quiz/models/questions_model.dart';
+import 'package:ip_master/modules/quiz/utils/quiz_question.dart';
+import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
 
 class QuizView extends StatefulWidget {
   final User user;
   final int level;
-  const QuizView({Key? key, required this.user, required this.level})
-    : super(key: key);
+  const QuizView({super.key, required this.user, required this.level});
 
   @override
   State<QuizView> createState() => _QuizViewState();

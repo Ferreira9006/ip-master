@@ -1,13 +1,12 @@
-import 'package:IPMaster/core/app_constants.dart';
-import 'package:IPMaster/core/widgets/app_fullwidth_button.dart';
-import 'package:IPMaster/core/widgets/app_regular_button.dart';
-import 'package:IPMaster/modules/quiz/views/quiz_view.dart';
+import 'package:ip_master/core/app_constants.dart';
+import 'package:ip_master/core/widgets/app_fullwidth_button.dart';
+import 'package:ip_master/modules/quiz/views/quiz_view.dart';
 import 'package:flutter/material.dart';
-import 'package:IPMaster/modules/auth/models/user_model.dart';
+import 'package:ip_master/modules/auth/models/user_model.dart';
 
 class StartGameView extends StatefulWidget {
   final User user;
-  const StartGameView({Key? key, required this.user}) : super(key: key);
+  const StartGameView({super.key, required this.user});
 
   @override
   State<StartGameView> createState() => _StartGameViewState();
