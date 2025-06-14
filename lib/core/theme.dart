@@ -28,7 +28,6 @@ final ThemeData appTheme = ThemeData(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      minimumSize: const Size.fromHeight(48),
     ),
   ),
 

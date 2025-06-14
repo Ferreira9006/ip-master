@@ -1,3 +1,4 @@
+import 'package:IPMaster/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
 import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
@@ -113,7 +114,10 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
                             future: ScoresDatabaseHelper()
-                                .getUserScoreByDifficulty(0, widget.user.id!),
+                                .getUserScoreByDifficulty(
+                                  gameLevelDifficultyOne,
+                                  widget.user.id!,
+                                ),
                             builder: (context, snapshot) {
                               final score = snapshot.data ?? 0;
                               return Text("$score pontos");
@@ -136,7 +140,10 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
                             future: ScoresDatabaseHelper()
-                                .getUserScoreByDifficulty(1, widget.user.id!),
+                                .getUserScoreByDifficulty(
+                                  gameLevelDifficultyTwo,
+                                  widget.user.id!,
+                                ),
                             builder: (context, snapshot) {
                               final score = snapshot.data ?? 0;
                               return Text("$score pontos");
@@ -159,7 +166,10 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
                             future: ScoresDatabaseHelper()
-                                .getUserScoreByDifficulty(2, widget.user.id!),
+                                .getUserScoreByDifficulty(
+                                  gameLevelDifficultyThree,
+                                  widget.user.id!,
+                                ),
                             builder: (context, snapshot) {
                               final score = snapshot.data ?? 0;
                               return Text("$score pontos");

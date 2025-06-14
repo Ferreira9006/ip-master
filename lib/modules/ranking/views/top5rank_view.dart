@@ -1,96 +1,112 @@
+import 'package:IPMaster/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:IPMaster/modules/ranking/data/scores_database_helper.dart';
 import 'package:IPMaster/modules/ranking/models/user_score_model.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
-import 'package:IPMaster/modules/dashboard/views/dashboard_view.dart';
 
-class CombinedTop5RankView extends StatelessWidget {
+class CombinedTop5RankView extends StatefulWidget {
   final User user;
   const CombinedTop5RankView({Key? key, required this.user}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final helper = ScoresDatabaseHelper();
+  State<CombinedTop5RankView> createState() => _CombinedTop5RankViewState();
+}
 
-    // Para carregar os três rankings ao mesmo tempo
-    final futureRanks = Future.wait<List<UserScore>>([
-      helper.getTopFiveByDifficulty(1),
-      helper.getTopFiveByDifficulty(2),
-      helper.getTopFiveByDifficulty(3),
+class _CombinedTop5RankViewState extends State<CombinedTop5RankView> {
+  List<UserScore> rank1 = [];
+  List<UserScore> rank2 = [];
+  List<UserScore> rank3 = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRankings();
+  }
+
+  Future<void> _loadRankings() async {
+    final helper = ScoresDatabaseHelper();
+    final results = await Future.wait([
+      helper.getTopFiveByDifficulty(gameLevelDifficultyOne),
+      helper.getTopFiveByDifficulty(gameLevelDifficultyTwo),
+      helper.getTopFiveByDifficulty(gameLevelDifficultyThree),
     ]);
 
+    setState(() {
+      rank1 = results[0];
+      rank2 = results[1];
+      rank3 = results[2];
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Top 5 por Nível'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => DashboardView(user: user)),
-            );
-          },
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            SizedBox(height: 100),
+            Text(
+              "Leaderboard",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            _buildRankCard('Nível 1 (Básico)', rank1),
+            _buildRankCard('Nível 2 (Sub-redes)', rank2),
+            _buildRankCard('Nível 3 (Super-redes)', rank3),
+          ],
         ),
       ),
-      body: FutureBuilder<List<List<UserScore>>>(
-        future: futureRanks,
-        builder: (ctx, snap) {
-          if (snap.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (!snap.hasData) {
-            return const Center(child: Text('Não há dados de ranking.'));
-          }
-          final List<UserScore> rank1 = snap.data![0];
-          final List<UserScore> rank2 = snap.data![1];
-          final List<UserScore> rank3 = snap.data![2];
+    );
+  }
 
-          Widget buildSection(String title, List<UserScore> list) {
-            if (list.isEmpty) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text('$title\n  Nenhum resultado.'),
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+  Widget _buildRankCard(String title, List<UserScore> list) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 100),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 6),
-                ...List.generate(list.length, (i) {
-                  final us = list[i];
-                  return ListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    leading: Text('${i + 1}.'),
-                    title: Text(us.displayName),
-                    subtitle: Text(us.email),
-                    trailing: Text(us.score.toString()),
+              ),
+              const SizedBox(height: 10),
+              if (list.isEmpty)
+                const Text('Nenhum resultado disponível.')
+              else
+                // Os "..." expande uma lista de widgets dentro de outra lista
+                ...list.asMap().entries.map((entry) {
+                  final i = entry.key;
+                  final us = entry.value;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('${i + 1}. ${us.displayName}'),
+                        Text('${us.score} pts'),
+                      ],
+                    ),
                   );
                 }),
-                const Divider(),
-              ],
-            );
-          }
-
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                buildSection('Nível 1 (Básico)', rank1),
-                buildSection('Nível 2 (Sub-redes)', rank2),
-                buildSection('Nível 3 (Super-redes)', rank3),
-              ],
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

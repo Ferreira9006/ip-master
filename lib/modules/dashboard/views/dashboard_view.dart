@@ -1,3 +1,4 @@
+import 'package:IPMaster/modules/dashboard/views/start_game_view.dart';
 import 'package:flutter/material.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
 import 'package:IPMaster/modules/auth/views/login_view.dart';
@@ -22,7 +23,7 @@ class _DashboardViewState extends State<DashboardView> {
     super.initState();
     screens = [
       UserInfoPanel(user: widget.user),
-      Center(child: Text("Jogar")),
+      StartGameView(user: widget.user),
       CombinedTop5RankView(user: widget.user),
     ];
   }

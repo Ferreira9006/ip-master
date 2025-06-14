@@ -56,6 +56,7 @@ class _LoginView extends State<LoginView> {
         ),
 
         Scaffold(
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -90,7 +91,7 @@ class _LoginView extends State<LoginView> {
 
                       AppInputTextformfield(
                         obscureText: false,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.emailAddress,
                         hintText: 'Insera o seu e-mail',
                         icon: Icons.email_outlined,
                         controller: _emailController,
