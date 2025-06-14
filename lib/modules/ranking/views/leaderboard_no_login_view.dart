@@ -46,42 +46,50 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-            Text(
-              "Leaderboard",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            _buildRankCard('Nível 1 (Básico)', rank1),
-            _buildRankCard('Nível 2 (Sub-redes)', rank2),
-            _buildRankCard('Nível 3 (Super-redes)', rank3),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginView()),
-                );
-              },
-              child: Text("Voltar"),
-            ),
-          ],
+      backgroundColor: const Color(0xFFF9FAFB),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                "Leaderboard",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              _buildRankCard('🥇 Nível 1 (Básico)', rank1, Colors.amber.shade100),
+              _buildRankCard('🥈 Nível 2 (Sub-redes)', rank2, Colors.green.shade100),
+              _buildRankCard('🥉 Nível 3 (Super-redes)', rank3, Colors.orange.shade100),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginView()),
+                  );
+                },
+                child: const Text("Voltar", style: TextStyle(fontSize: 16)),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildRankCard(String title, List<UserScore> list) {
-    return Container(
+  Widget _buildRankCard(String title, List<UserScore> list, Color bgColor) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: Card(
+        elevation: 4,
+        color: bgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(
-          constraints: const BoxConstraints(minHeight: 100),
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,21 +105,29 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
               if (list.isEmpty)
                 const Text('Nenhum resultado disponível.')
               else
-                // Os "..." expande uma lista de widgets dentro de outra lista
-                ...list.asMap().entries.map((entry) {
-                  final i = entry.key;
-                  final us = entry.value;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('${i + 1}. ${us.displayName}'),
-                        Text('${us.score} pts'),
-                      ],
-                    ),
-                  );
-                }),
+                Column(
+                  children: list.asMap().entries.map((entry) {
+                    final i = entry.key;
+                    final us = entry.value;
+                    final medal = i == 0
+                        ? '🥇'
+                        : i == 1
+                            ? '🥈'
+                            : i == 2
+                                ? '🥉'
+                                : '🎖️';
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('$medal ${i + 1}. ${us.displayName}'),
+                          Text('${us.score} pts'),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
             ],
           ),
         ),

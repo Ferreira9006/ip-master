@@ -1,9 +1,9 @@
-import 'package:ip_master/modules/dashboard/views/leaderboard_view.dart';
-import 'package:ip_master/modules/dashboard/views/start_game_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
 import 'package:ip_master/modules/auth/views/login_view.dart';
 import 'package:ip_master/modules/dashboard/views/info_panel_view.dart';
+import 'package:ip_master/modules/dashboard/views/leaderboard_view.dart';
+import 'package:ip_master/modules/dashboard/views/start_game_view.dart';
 
 class DashboardView extends StatefulWidget {
   final User user;
@@ -24,22 +24,44 @@ class _DashboardViewState extends State<DashboardView> {
     screens = [
       UserInfoPanel(user: widget.user),
       StartGameView(user: widget.user),
-      LeaderboardView(),
+      const LeaderboardView(),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[_currentIndex],
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.0, 0.05),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          );
+        },
+        child: Container(
+          key: ValueKey<int>(_currentIndex),
+          child: screens[_currentIndex],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
+        selectedItemColor: Colors.deepPurple,
+        unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (index == 3) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => LoginView()),
+              MaterialPageRoute(builder: (_) => const LoginView()),
             );
           } else {
             setState(() {
@@ -47,7 +69,7 @@ class _DashboardViewState extends State<DashboardView> {
             });
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',
