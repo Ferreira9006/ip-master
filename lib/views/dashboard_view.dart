@@ -15,12 +15,12 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   void _startQuiz(int level) {
-    /*Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => QuizView(user: widget.user, level: level),
       ),
-    );*/
+    );
   }
 
   @override
