@@ -1,4 +1,5 @@
 import 'package:IPMaster/core/widgets/app_fullwidth_button.dart';
+import 'package:IPMaster/core/widgets/app_input_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:IPMaster/modules/dashboard/views/dashboard_view.dart';
 import 'package:IPMaster/modules/auth/views/register_view.dart';
@@ -87,12 +88,11 @@ class _LoginView extends State<LoginView> {
                     children: [
                       const SizedBox(height: 20),
 
-                      TextFormField(
+                      AppInputTextformfield(
+                        obscureText: false,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Insera o seu e-mail',
-                          prefixIcon: const Icon(Icons.email_outlined),
-                        ),
+                        hintText: 'Insera o seu e-mail',
+                        icon: Icons.email_outlined,
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -106,13 +106,11 @@ class _LoginView extends State<LoginView> {
 
                       const SizedBox(height: 16),
 
-                      TextFormField(
+                      AppInputTextformfield(
                         obscureText: true,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Insira a sua password',
-                          prefixIcon: const Icon(Icons.lock_outline),
-                        ),
+                        hintText: 'Insira a sua password',
+                        icon: Icons.lock_outline,
                         controller: _passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {

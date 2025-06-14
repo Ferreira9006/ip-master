@@ -1,3 +1,4 @@
+import 'package:IPMaster/core/widgets/app_input_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:IPMaster/modules/auth/models/user_model.dart';
@@ -86,12 +87,11 @@ class _RegisterViewState extends State<RegisterView> {
                     children: [
                       SizedBox(height: 26),
 
-                      TextFormField(
+                      AppInputTextformfield(
+                        obscureText: false,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Insira o seu nome',
-                          prefixIcon: const Icon(Icons.person),
-                        ),
+                        hintText: 'Insira o seu nome',
+                        icon: Icons.person,
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -103,12 +103,11 @@ class _RegisterViewState extends State<RegisterView> {
 
                       const SizedBox(height: 16),
 
-                      TextFormField(
+                      AppInputTextformfield(
+                        obscureText: false,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Insira o seu e-mail',
-                          prefixIcon: const Icon(Icons.email_outlined),
-                        ),
+                        hintText: 'Insira o seu e-mail',
+                        icon: Icons.email_outlined,
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -122,14 +121,12 @@ class _RegisterViewState extends State<RegisterView> {
 
                       const SizedBox(height: 16),
 
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Insira a sua password',
-                          prefixIcon: const Icon(Icons.password),
-                        ),
-                        controller: _passwordController,
+                      AppInputTextformfield(
                         obscureText: true,
+                        keyboardType: TextInputType.text,
+                        hintText: 'Insira a sua password',
+                        icon: Icons.password,
+                        controller: _passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'A password é obrigatória';
