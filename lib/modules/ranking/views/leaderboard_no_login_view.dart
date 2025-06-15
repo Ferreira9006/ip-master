@@ -46,7 +46,6 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
@@ -60,9 +59,21 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
               ),
               const Icon(Icons.leaderboard, size: 48, color: Colors.blue),
               const SizedBox(height: 30),
-              _buildRankCard('🥇 Nível 1 (Básico)', rank1, Colors.amber.shade100),
-              _buildRankCard('🥈 Nível 2 (Sub-redes)', rank2, Colors.green.shade100),
-              _buildRankCard('🥉 Nível 3 (Super-redes)', rank3, Colors.orange.shade100),
+              _buildRankCard(
+                '🥇 Nível 1 (Básico)',
+                rank1,
+                Colors.amber.shade100,
+              ),
+              _buildRankCard(
+                '🥈 Nível 2 (Sub-redes)',
+                rank2,
+                Colors.green.shade100,
+              ),
+              _buildRankCard(
+                '🥉 Nível 3 (Super-redes)',
+                rank3,
+                Colors.orange.shade100,
+              ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
@@ -107,27 +118,29 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
                 const Text('Nenhum resultado disponível.')
               else
                 Column(
-                  children: list.asMap().entries.map((entry) {
-                    final i = entry.key;
-                    final us = entry.value;
-                    final medal = i == 0
-                        ? '🥇'
-                        : i == 1
-                            ? '🥈'
-                            : i == 2
+                  children:
+                      list.asMap().entries.map((entry) {
+                        final i = entry.key;
+                        final us = entry.value;
+                        final medal =
+                            i == 0
+                                ? '🥇'
+                                : i == 1
+                                ? '🥈'
+                                : i == 2
                                 ? '🥉'
                                 : '🎖️';
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('$medal ${i + 1}. ${us.displayName}'),
-                          Text('${us.score} pts'),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('$medal ${i + 1}. ${us.displayName}'),
+                              Text('${us.score} pts'),
+                            ],
+                          ),
+                        );
+                      }).toList(),
                 ),
             ],
           ),

@@ -64,7 +64,7 @@ class _LeaderboardViewState extends State<LeaderboardView> {
                   Icon(Icons.emoji_events_sharp, size: 30),
                   SizedBox(width: 10),
                   Text(
-                    "Raking dos Jogadores ",
+                    "Ranking dos Jogadores ",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
