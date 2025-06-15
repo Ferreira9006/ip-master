@@ -62,15 +62,12 @@ class _LeaderboardViewState extends State<LeaderboardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 24),
-              const Text(
-                "🏆 Ranking dos Jogadores",
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-                textAlign: TextAlign.center,
+              Row(
+                children: [
+                  Icon(Icons.emoji_events_sharp, size: 30),
+                  SizedBox(width: 10),
+                  Text("Raking dos Jogadores ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                ],
               ),
               const SizedBox(height: 16),
               _buildRankCard('Nível 1 - Básico (/8, /16, /24)', rank1),

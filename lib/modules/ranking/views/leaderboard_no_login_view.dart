@@ -58,6 +58,7 @@ class _LeaderboardNoLoginViewState extends State<LeaderboardNoLoginView> {
                 "Leaderboard",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
+              const Icon(Icons.leaderboard, size: 48, color: Colors.blue),
               const SizedBox(height: 30),
               _buildRankCard('🥇 Nível 1 (Básico)', rank1, Colors.amber.shade100),
               _buildRankCard('🥈 Nível 2 (Sub-redes)', rank2, Colors.green.shade100),

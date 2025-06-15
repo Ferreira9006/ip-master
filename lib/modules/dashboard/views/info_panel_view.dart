@@ -33,7 +33,13 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
 
             const Align(
               alignment: Alignment.centerLeft,
-              child: Text("👤 Dados Pessoais", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              child: Row(
+                children: [
+                  Icon(Icons.person_pin, size: 30),
+                  SizedBox(width: 10),
+                  Text("Dados Pessoais", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             Card(
@@ -60,9 +66,19 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
             ),
 
             const SizedBox(height: 30),
-            const Align(
+
+            Align(
               alignment: Alignment.centerLeft,
-              child: Text("📊 As tuas pontuações", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              child: Row(
+                children: const [
+                  Icon(Icons.analytics_outlined, size: 30),
+                  SizedBox(width: 10),
+                  Text(
+                    "Minhas Pontuações",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             Card(
