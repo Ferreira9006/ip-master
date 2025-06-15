@@ -41,13 +41,10 @@ class _LeaderboardViewState extends State<LeaderboardView> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
         title: const Text("Leaderboard"),
         centerTitle: true,
@@ -66,7 +63,10 @@ class _LeaderboardViewState extends State<LeaderboardView> {
                 children: [
                   Icon(Icons.emoji_events_sharp, size: 30),
                   SizedBox(width: 10),
-                  Text("Raking dos Jogadores ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                  Text(
+                    "Raking dos Jogadores ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -86,9 +86,7 @@ class _LeaderboardViewState extends State<LeaderboardView> {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 4,
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -117,10 +115,14 @@ class _LeaderboardViewState extends State<LeaderboardView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('${i + 1}. ${us.displayName}',
-                            style: const TextStyle(fontSize: 16)),
-                        Text('${us.score} pts',
-                            style: const TextStyle(fontSize: 16)),
+                        Text(
+                          '${i + 1}. ${us.displayName}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          '${us.score} pts',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ],
                     ),
                   );

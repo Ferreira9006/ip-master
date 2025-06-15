@@ -16,7 +16,6 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6F8),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -37,7 +36,10 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
                 children: [
                   Icon(Icons.person_pin, size: 30),
                   SizedBox(width: 10),
-                  Text("Dados Pessoais", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                  Text(
+                    "Dados Pessoais",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
             ),
@@ -45,7 +47,9 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
             Card(
               color: Colors.white,
               elevation: 2,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Column(
                 children: [
                   ListTile(
@@ -84,7 +88,9 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
             Card(
               color: Colors.white,
               elevation: 2,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -106,7 +112,10 @@ class _UserInfoPanelState extends State<UserInfoPanel> {
 
   Widget _buildScoreRow(String label, int difficulty) {
     return FutureBuilder<int>(
-      future: ScoresDatabaseHelper().getUserScoreByDifficulty(difficulty, widget.user.id!),
+      future: ScoresDatabaseHelper().getUserScoreByDifficulty(
+        difficulty,
+        widget.user.id!,
+      ),
       builder: (context, snapshot) {
         final score = snapshot.data ?? 0;
         return Row(

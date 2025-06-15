@@ -25,14 +25,13 @@ class _StartGameViewState extends State<StartGameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
+              Text(
                 "Jogar",
                 style: TextStyle(
                   fontSize: 28,
@@ -40,40 +39,47 @@ class _StartGameViewState extends State<StartGameView> {
                   color: Colors.deepPurple,
                 ),
               ),
-              const SizedBox(height: 8),
-              const Text(
+              SizedBox(height: 8),
+              Text(
                 "Aprenda redes de uma forma divertida.",
                 style: TextStyle(fontSize: 16, color: Colors.black54),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 50),
-              _buildLevelButton("Nível 1", gameLevelDifficultyOne, Colors.amber),
-              const SizedBox(height: 16),
-              _buildLevelButton("Nível 2", gameLevelDifficultyTwo, Colors.green),
-              const SizedBox(height: 16),
-              _buildLevelButton("Nível 3", gameLevelDifficultyThree, Colors.orange),
+              SizedBox(height: 50),
+
+              AppFullWidthButton(
+                text: "Nível 1",
+                onPressed: () => _startQuiz(gameLevelDifficultyOne),
+                backgroundColor: Colors.amber,
+                foregroundColor: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+
+              SizedBox(height: 15),
+
+              AppFullWidthButton(
+                text: "Nível 2",
+                onPressed: () => _startQuiz(gameLevelDifficultyTwo),
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+
+              SizedBox(height: 15),
+
+              AppFullWidthButton(
+                text: "Nível 3",
+                onPressed: () => _startQuiz(gameLevelDifficultyThree),
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildLevelButton(String label, int level, Color color) {
-    return SizedBox(
-      width: double.infinity,
-      height: 60,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        onPressed: () => _startQuiz(level),
-        child: Text(label),
       ),
     );
   }

@@ -46,16 +46,20 @@ class _QuizViewState extends State<QuizView> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => AlertDialog(
-        title: const Text('Quiz Finalizado!'),
-        content: Text('Pontuação final: $_sessionScore pontos'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
-            child: const Text('Voltar'),
+      builder:
+          (_) => AlertDialog(
+            title: const Text('Quiz Finalizado!'),
+            content: Text('Pontuação final: $_sessionScore pontos'),
+            actions: [
+              TextButton(
+                onPressed:
+                    () => Navigator.of(
+                      context,
+                    ).popUntil((route) => route.isFirst),
+                child: const Text('Voltar'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -108,7 +112,6 @@ class _QuizViewState extends State<QuizView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Quiz Nível ${widget.level}'),
         centerTitle: true,
@@ -118,7 +121,10 @@ class _QuizViewState extends State<QuizView> {
             child: Center(
               child: Text(
                 'Score: $_sessionScore',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
@@ -135,7 +141,10 @@ class _QuizViewState extends State<QuizView> {
                 child: Text(
                   _current.questionText,
                   key: ValueKey<String>(_current.questionText),
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -148,11 +157,14 @@ class _QuizViewState extends State<QuizView> {
                     curve: Curves.easeInOut,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: _answered
-                          ? (opt == _current.correctAnswer
-                              ? Colors.green
-                              : (opt == _current.correctAnswer ? Colors.green : Colors.red))
-                          : Colors.blue,
+                      color:
+                          _answered
+                              ? (opt == _current.correctAnswer
+                                  ? Colors.green
+                                  : (opt == _current.correctAnswer
+                                      ? Colors.green
+                                      : Colors.red))
+                              : Colors.blue,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Material(
@@ -161,7 +173,10 @@ class _QuizViewState extends State<QuizView> {
                         borderRadius: BorderRadius.circular(12),
                         onTap: () => _onSelect(opt),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
+                          ),
                           child: Center(
                             child: Text(
                               opt,
