@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ip_master/core/widgets/app_fullwidth_button.dart';
 import 'package:ip_master/modules/auth/models/user_model.dart';
 import 'package:ip_master/modules/quiz/models/questions_model.dart';
 import 'package:ip_master/modules/quiz/utils/quiz_question.dart';
@@ -7,8 +8,8 @@ import 'package:ip_master/modules/ranking/data/scores_database_helper.dart';
 /// Ecrã principal do jogo de perguntas.
 /// Apresenta uma pergunta de acordo com o nível e atualiza a pontuação do jogador.
 class QuizView extends StatefulWidget {
-  final User user;
-  final int level;
+  final User user; // Utilizador autenticado
+  final int level; // Nível de dificuldade selecionado
 
   const QuizView({super.key, required this.user, required this.level});
 
@@ -17,58 +18,30 @@ class QuizView extends StatefulWidget {
 }
 
 class _QuizViewState extends State<QuizView> {
-  late Question _current;
-  bool _answered = false;
-  int _sessionScore = 0;
-  int _questionCount = 0;
-  final int _maxQuestions = 5;
+  late Question _current; // Pergunta atual
+  bool _answered = false; // Evita múltiplas respostas
+  int _sessionScore = 0; // Pontuação da sessão atual
 
   @override
   void initState() {
     super.initState();
-    _loadNext();
+    _loadNext(); // Carrega a primeira pergunta
   }
 
   void _loadNext() {
-    if (_questionCount >= _maxQuestions) {
-      _showSummary();
-      return;
-    }
-
     setState(() {
       _current = generateQuestion(widget.level);
       _answered = false;
-      _questionCount++;
     });
   }
 
-  void _showSummary() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder:
-          (_) => AlertDialog(
-            title: const Text('Quiz Finalizado!'),
-            content: Text('Pontuação final: $_sessionScore pontos'),
-            actions: [
-              TextButton(
-                onPressed:
-                    () => Navigator.of(
-                      context,
-                    ).popUntil((route) => route.isFirst),
-                child: const Text('Voltar'),
-              ),
-            ],
-          ),
-    );
-  }
-
   void _onSelect(String option) async {
-    if (_answered) return;
+    if (_answered) return; // Impede respostas múltiplas
     setState(() => _answered = true);
 
     final correct = option == _current.correctAnswer;
 
+    // Define pontos ganhos/perdidos com base no nível
     int scoreDelta;
     switch (widget.level) {
       case 1:
@@ -84,14 +57,16 @@ class _QuizViewState extends State<QuizView> {
         scoreDelta = 0;
     }
 
-    _sessionScore += scoreDelta;
+    _sessionScore += scoreDelta; // Atualiza pontuação
 
+    // Regista o resultado na base de dados local
     await ScoresDatabaseHelper().insertScore(
       userId: widget.user.id!,
       difficulty: widget.level,
       score: scoreDelta,
     );
 
+    // Mostra feedback ao utilizador
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -104,9 +79,8 @@ class _QuizViewState extends State<QuizView> {
       ),
     );
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) _loadNext();
-    });
+    // Espera 2 segundos antes de apresentar nova pergunta
+    Future.delayed(const Duration(seconds: 2), _loadNext);
   }
 
   @override
@@ -116,85 +90,44 @@ class _QuizViewState extends State<QuizView> {
         title: Text('Quiz Nível ${widget.level}'),
         centerTitle: true,
         actions: [
+          // Mostra a pontuação atual no topo
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Center(
-              child: Text(
-                'Score: $_sessionScore',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            child: Center(child: Text('Score: $_sessionScore')),
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child: Text(
-                  _current.questionText,
-                  key: ValueKey<String>(_current.questionText),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Mostra a pergunta atual
+            Text(_current.questionText, style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 24),
+
+            // Lista de opções com cores de feedback (verde/vermelho)
+            ..._current.options.map(
+              (opt) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: AppFullWidthButton(
+                  backgroundColor:
+                      _answered
+                          ? (opt == _current.correctAnswer
+                              ? const Color.fromARGB(255, 43, 146, 46) // verde
+                              : const Color.fromARGB(
+                                255,
+                                156,
+                                50,
+                                42,
+                              )) // vermelho
+                          : null,
+                  onPressed: () => _onSelect(opt),
+                  text: opt,
                 ),
               ),
-              const SizedBox(height: 30),
-              ..._current.options.map(
-                (opt) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color:
-                          _answered
-                              ? (opt == _current.correctAnswer
-                                  ? Colors.green
-                                  : (opt == _current.correctAnswer
-                                      ? Colors.green
-                                      : Colors.red))
-                              : Colors.blue,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () => _onSelect(opt),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
-                          child: Center(
-                            child: Text(
-                              opt,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

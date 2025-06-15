@@ -70,7 +70,7 @@ class _LeaderboardViewState extends State<LeaderboardView> {
                 ],
               ),
               const SizedBox(height: 16),
-              _buildRankCard('Nível 1 - Básico (/8, /16, /24)', rank1),
+              _buildRankCard('Nível 1 - Básico', rank1),
               _buildRankCard('Nível 2 - Sub-redes', rank2),
               _buildRankCard('Nível 3 - Super-redes', rank3),
               const SizedBox(height: 40),
